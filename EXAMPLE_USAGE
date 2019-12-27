@@ -1,0 +1,33 @@
+Below details some example usage of the runtime api
+
+/*
+* Execute a sequence of code defined in a file
+*/
+// Load the script assembly from a given file
+Script script = Loader.load_script("program.iasm");
+
+// Generates the enviroment for use and the standard library (by default)
+// Item filename = enviroment.get(value_of("_FILENAME")); // Will return the filename for the given script
+Item enviroment = Enviroment.gen_env(); // Type is 'container'
+
+// Create a runnable core
+Item runnable = Loader.load_core(script, enviroment); // Type is 'core'
+
+// Begin code execution and return the items
+Item[] results = runnable.call();
+
+/*
+* Execute a single line of code defined by the user
+*/
+// Load the script assembly from a given file
+Script bytes = Loader.load_bytes(new byte[]{0,1,2,3,5});
+
+// Generates the enviroment for use and the standard library (by default)
+// Item filename = enviroment.get(value_of("_FILENAME")); // Will return the filename for the given script
+Item enviroment = Enviroment.gen_env(); // Type is 'container'
+
+// Create a runnable core
+Item runnable = Loader.load_core(bytes, enviroment); // Type is 'core'
+
+// Begin code execution and return the items
+Item[] results = runnable.call();

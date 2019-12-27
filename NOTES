@@ -1,0 +1,41 @@
+types:
+
+### start
+
+uint8
+int8
+uint16
+int16
+uint32
+int32
+uint64
+int64
+float32
+float64
+float128
+
+string
+
+function -> Functions have a set of code, expected paramaters/return etc
+coroutine -> coroutines extend functions
+[
+    - coroutines are able to yield: return the flow of execution until resumed
+]
+
+struct
+
+object
+class
+
+core -> This is a block to be executed
+[
+    - it includes an execution and func stack and an instruction pointer
+]
+
+
+### end
+
+script -> This is a class to define a loaded .iasm file
+[
+    - it contains the code and script meta data such as constants etc
+]

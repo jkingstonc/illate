@@ -1,0 +1,32 @@
+Loader -> [
+    Script load_script(){
+        Load into a script from .iasm
+    }
+
+    Script load_bytes(){
+        Load into a script from a byte array
+    }
+]
+
+Enviroment -> [
+    platform -> The platform we are on, e.g. on Windows we may have a global variable called Env which should be set to "Windows"
+
+    Container gen_env(){
+        Returns an enviroment container containing all information about an enviroment
+        Includes standard libraries and global variables
+    }
+]
+
+Script -> [
+    @globals -> Reference to global variables
+    code -> Sequence of bytes that form the code of the script, not functions and classes here are not defined, they must be defined
+    locals -> Local variables in the form of an IContainer with an IString and an Item map
+]
+
+Core -> [
+    @script -> Reference to a script that it executes
+    ip -> Instruction pointer
+    stack -> Execution stack
+
+    // Say we encounter a function, we simply call that function and it's Core will execute meaning we don't need a stack
+]
