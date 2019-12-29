@@ -10,7 +10,7 @@
 
 class IContainer : public Item{
 public:
-    IContainer(Istring platform){}
+    IContainer(){}
 private:
 };
 

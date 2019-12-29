@@ -10,10 +10,8 @@
 #include "icontainer.h"
 #include "istring.h"
 
-#define PLATFORM Windows
-
 std::shared_ptr<IContainer> gen_env(){
-    return std::make_shared<IContainer>(to_item(std::string("windows")));
+    return std::make_shared<IContainer>();
 }
 
 #endif //ILLATE_ENVIROMENT_H

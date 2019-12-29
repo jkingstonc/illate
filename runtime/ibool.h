@@ -13,7 +13,8 @@ public:
 
     }
 
-    using Item::to_string_native;
+    ItemType type(){ return BOOLEAN; }
+
     std::string to_string_native(){
         return (this->val == true) ? std::string("true") : std::string("false");
     }
