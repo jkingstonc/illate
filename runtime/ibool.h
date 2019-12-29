@@ -7,14 +7,14 @@
 
 #include "item.h"
 
-class Ibool : public Item{
+class Ibool : public Items::Item{
 public:
     Ibool(bool val);
-    ItemType type();
+    Items::ItemType type();
     std::string to_string_native();
 
-    static Ibool to_item(bool val){
-        return Ibool(val);
+    static std::shared_ptr<Ibool> to_item(bool val){
+        return std::make_shared<Ibool>(val);
     }
 private:
     const bool val;

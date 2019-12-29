@@ -4,25 +4,25 @@
 
 #include "item.h"
 
-std::string Item::to_string_native(){
+std::string Items::Item::to_string_native(){
     return "Item -> no type";
 }
 
-void Item::call(){
+void Items::Item::call(){
 
 }
 // Here arg1 can be a single item or an item chain
-void Item::call(std::shared_ptr<Item> arg1){
+void Items::Item::call(std::shared_ptr<Items::Item> arg1){
 
 }
-void Item::call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2){
+void Items::Item::call(std::shared_ptr<Items::Item> arg1, std::shared_ptr<Items::Item> arg2){
 
 }
-void Item::call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2, std::shared_ptr<Item> arg3){
+void Items::Item::call(std::shared_ptr<Items::Item> arg1, std::shared_ptr<Items::Item> arg2, std::shared_ptr<Items::Item> arg3){
 
 }
 
-std::string Item::item_type_str[] = {
+std::string Items::Item::item_type_str[] = {
         "nill",
         "chain",
         "boolean",

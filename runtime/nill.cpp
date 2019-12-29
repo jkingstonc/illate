@@ -8,8 +8,8 @@ Inill::Inill(){
 
 }
 
-ItemType Inill::type(){
-    return ItemType::NIL;
+Items::ItemType Inill::type(){
+    return Items::ItemType::NIL;
 }
 
 std::string Inill::to_string_native(){

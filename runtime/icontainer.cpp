@@ -8,8 +8,8 @@ Icontainer::Icontainer() {
 
 }
 
-ItemType Icontainer::type(){
-    return ItemType::CONTAINER;
+Items::ItemType Icontainer::type(){
+    return Items::ItemType::CONTAINER;
 }
 std::string Icontainer::to_string_native(){
     return std::string("Container");

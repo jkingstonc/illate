@@ -8,8 +8,8 @@ ItemChain::ItemChain() {
 
 }
 
-ItemType ItemChain::type(){
-    return ItemType::CHAIN;
+Items::ItemType ItemChain::type(){
+    return Items::ItemType::CHAIN;
 }
 
 std::string ItemChain::to_string_native(){

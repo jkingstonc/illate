@@ -7,8 +7,8 @@
 Ibool::Ibool(bool val) : val(val) {
 }
 
-ItemType Ibool::type(){
-    return ItemType::BOOLEAN;
+Items::ItemType Ibool::type(){
+    return Items::ItemType::BOOLEAN;
 }
 
 std::string Ibool::to_string_native(){

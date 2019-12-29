@@ -4,8 +4,8 @@
 
 #include "istring.h"
 
-ItemType Istring::type(){
-    return ItemType::STRING;
+Items::ItemType Istring::type(){
+    return Items::ItemType::STRING;
 }
 
 Istring::Istring(std::string val) : val(val){

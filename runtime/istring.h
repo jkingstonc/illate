@@ -7,14 +7,14 @@
 
 #include "item.h"
 
-class Istring : public Item{
+class Istring : public Items::Item{
 public:
     Istring(std::string val);
-    ItemType type();
+    Items::ItemType type();
     std::string to_string_native();
 
-    static Istring to_item(std::string val){
-        return Istring(val);
+    static std::shared_ptr<Istring> to_item(std::string val){
+        return std::make_shared<Istring>(val);
     }
 private:
     const std::string val;

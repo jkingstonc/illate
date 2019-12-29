@@ -7,14 +7,14 @@
 
 #include "item.h"
 
-class Inill : public Item{
+class Inill : public Items::Item{
 public:
     Inill();
-    ItemType type();
+    Items::ItemType type();
     std::string to_string_native();
 
-    static Item to_inill(std::string){
-        return Inill();
+    static std::shared_ptr<Item> to_inill(std::string){
+        return std::shared_ptr<Inill>();
     }
 private:
 };

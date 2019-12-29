@@ -10,13 +10,13 @@
 #include "item.h"
 #include "script.h"
 
-class Core : public Item{
+class Core : public Items::Item{
 public:
 
     Core(std::shared_ptr<Script> script, std::shared_ptr<Icontainer> parent_env) : script(script), parent_env(parent_env){}
     Core(std::shared_ptr<Script> script) : script(script), parent_env(nullptr){}
 
-    ItemType type();
+    Items::ItemType type();
     std::string to_string_native();
 
     void call();

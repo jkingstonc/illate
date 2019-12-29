@@ -7,10 +7,10 @@
 
 #include "item.h"
 
-class ItemChain : public Item{
+class ItemChain : public Items::Item{
 public:
     ItemChain();
-    ItemType type();
+    Items::ItemType type();
     std::string to_string_native();
 private:
 };

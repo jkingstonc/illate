@@ -8,42 +8,43 @@
 #include <string>
 #include <memory>
 
-enum class ItemType{
-    NIL,
-    CHAIN,
+namespace Items{
+    enum class ItemType{
+        NIL,
+        CHAIN,
 
-    BOOLEAN,
-    NUMBER,
-    STRING,
+        BOOLEAN,
+        NUMBER,
+        STRING,
 
-    CONTAINER,
+        CONTAINER,
 
-    FUNCTION,
-    CLASS,
-    OBJECT,
+        FUNCTION,
+        CLASS,
+        OBJECT,
 
-    CORE,
-};
+        CORE,
+    };
 
-class Item{
-public:
+    class Item{
+    public:
 
-    ItemType type();
-    virtual std::string to_string_native();
+        ItemType type();
+        virtual std::string to_string_native();
 
-    /**
-     * Every Item is callable, it can be called with any amount of arguments
-     * */
-    virtual void call();
-    // Here arg1 can be a single item or an item chain
-    virtual void call(std::shared_ptr<Item> arg1);
-    virtual void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2);
-    virtual void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2, std::shared_ptr<Item> arg3);
+        /**
+         * Every Item is callable, it can be called with any amount of arguments
+         * */
+        virtual void call();
+        // Here arg1 can be a single item or an item chain
+        virtual void call(std::shared_ptr<Item> arg1);
+        virtual void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2);
+        virtual void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2, std::shared_ptr<Item> arg3);
 
-    static std::string item_type_str[10];
+        static std::string item_type_str[10];
 
-private:
-};
-
+    private:
+    };
+}
 
 #endif //ILLATE_ITEM_H
