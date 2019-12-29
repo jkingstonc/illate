@@ -8,9 +8,11 @@
 #include "item.h"
 #include "istring.h"
 
-class IContainer : public Item{
+class Icontainer : public Item{
 public:
-    IContainer(){}
+    Icontainer();
+    ItemType type();
+    std::string to_string_native();
 private:
 };
 

@@ -19,14 +19,14 @@
 class Script{
 public:
     Script(std::string filename,
-            std::shared_ptr<IContainer> enviroment,
+            std::shared_ptr<Icontainer> enviroment,
             std::shared_ptr<uint8_t > code) : filename(filename), enviroment(enviroment), code(code){}
 
     // The filename of the script, if a file wasn't provded then the filename will be initialised to "NIL"
     std::string filename;
     // The enviroment that this script uses
     // With subsequent Core calls (nested core calls), environments will be concatenated
-    std::shared_ptr<IContainer> enviroment;
+    std::shared_ptr<Icontainer> enviroment;
     // The code to execute
     std::shared_ptr<uint8_t> code;
 private:

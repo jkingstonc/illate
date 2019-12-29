@@ -5,7 +5,6 @@
 #ifndef ILLATE_CORE_H
 #define ILLATE_CORE_H
 
-#include <memory>
 #include <stack>
 
 #include "item.h"
@@ -14,17 +13,22 @@
 class Core : public Item{
 public:
 
-    Core(std::shared_ptr<Script> script, std::shared_ptr<IContainer> parent_env) : script(script), parent_env(parent_env){}
+    Core(std::shared_ptr<Script> script, std::shared_ptr<Icontainer> parent_env) : script(script), parent_env(parent_env){}
     Core(std::shared_ptr<Script> script) : script(script), parent_env(nullptr){}
 
-    void call() override{
-        std::cout << "lol" << std::endl;
-    };
+    ItemType type();
+    std::string to_string_native();
+
+    void call();
+    // Here arg1 can be a single item or an item chain
+    void call(std::shared_ptr<Item> arg1);
+    void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2);
+    void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2, std::shared_ptr<Item> arg3);
 
     // The script that this accesses for code
     std::shared_ptr<Script> script;
     // The parent environment that we need to access
-    std::shared_ptr<IContainer> parent_env;
+    std::shared_ptr<Icontainer> parent_env;
 
 private:
     // Our instruction pointer

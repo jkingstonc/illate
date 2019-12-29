@@ -9,21 +9,15 @@
 
 class Ibool : public Item{
 public:
-    Ibool(bool val) : val(val){
+    Ibool(bool val);
+    ItemType type();
+    std::string to_string_native();
 
-    }
-
-    ItemType type(){ return BOOLEAN; }
-
-    std::string to_string_native(){
-        return (this->val == true) ? std::string("true") : std::string("false");
+    static Ibool to_item(bool val){
+        return Ibool(val);
     }
 private:
     const bool val;
 };
-
-Ibool to_item(bool val){
-    return Ibool(val);
-}
 
 #endif //ILLATE_IBOOL_H

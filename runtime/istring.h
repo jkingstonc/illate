@@ -9,22 +9,15 @@
 
 class Istring : public Item{
 public:
-    Istring(std::string str) : str(str){
+    Istring(std::string val);
+    ItemType type();
+    std::string to_string_native();
+
+    static Istring to_item(std::string val){
+        return Istring(val);
     }
-
-    ItemType type(){ return STRING; }
-
-    using Item::to_string_native;
-    std::string to_string_native(){
-        return this->str;
-    }
-
 private:
-    const std::string str;
+    const std::string val;
 };
-
-Istring to_item(std::string str){
-    return Istring(str);
-}
 
 #endif //ILLATE_ISTRING_H

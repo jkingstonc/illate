@@ -5,10 +5,10 @@
 #ifndef ILLATE_ITEM_H
 #define ILLATE_ITEM_H
 
-#include <iostream>
 #include <string>
+#include <memory>
 
-enum ItemType{
+enum class ItemType{
     NIL,
     CHAIN,
 
@@ -25,33 +25,22 @@ enum ItemType{
     CORE,
 };
 
-std::string item_type_str[] = {
-        "nill",
-        "chain",
-        "boolean",
-        "number",
-        "string",
-        "container",
-        "function",
-        "class",
-        "object",
-        "core"
-};
-
 class Item{
 public:
+
     ItemType type();
-    virtual std::string to_string_native(){return nullptr;}
+    virtual std::string to_string_native();
 
     /**
      * Every Item is callable, it can be called with any amount of arguments
      * */
-    virtual void call(){};
+    virtual void call();
     // Here arg1 can be a single item or an item chain
-    virtual void call(std::shared_ptr<Item> arg1){};
-    virtual void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2){};
-    virtual void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2, std::shared_ptr<Item> arg3){};
+    virtual void call(std::shared_ptr<Item> arg1);
+    virtual void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2);
+    virtual void call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2, std::shared_ptr<Item> arg3);
 
+    static std::string item_type_str[10];
 
 private:
 };

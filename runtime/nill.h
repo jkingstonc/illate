@@ -9,17 +9,14 @@
 
 class Inill : public Item{
 public:
-    ItemType type(){
-        return NIL;
-    }
-    std::string to_string_native(){
-        return std::string("nill");
+    Inill();
+    ItemType type();
+    std::string to_string_native();
+
+    static Item to_inill(std::string){
+        return Inill();
     }
 private:
 };
-
-Item to_inill(std::string){
-    return Inill();
-}
 
 #endif //ILLATE_NILL_H

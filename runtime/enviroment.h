@@ -10,8 +10,8 @@
 #include "icontainer.h"
 #include "istring.h"
 
-std::shared_ptr<IContainer> gen_env(){
-    return std::make_shared<IContainer>();
+std::shared_ptr<Icontainer> gen_env(){
+    return std::make_shared<Icontainer>();
 }
 
 #endif //ILLATE_ENVIROMENT_H

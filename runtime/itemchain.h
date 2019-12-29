@@ -9,7 +9,9 @@
 
 class ItemChain : public Item{
 public:
-    ItemType type(){ return CHAIN; }
+    ItemChain();
+    ItemType type();
+    std::string to_string_native();
 private:
 };
 
