@@ -7,16 +7,18 @@
 
 #include "item.h"
 
-class Inill : public Items::Item{
-public:
-    Inill();
-    Items::ItemType type();
-    std::string to_string_native();
+namespace items{
+    class Inill : public items::Item{
+    public:
+        Inill();
+        items::ItemType type();
+        std::string to_string_native();
 
-    static std::shared_ptr<Item> to_inill(std::string){
-        return std::shared_ptr<Inill>();
-    }
-private:
+        static std::shared_ptr<Item> to_inill(std::string){
+            return std::shared_ptr<Inill>();
+        }
+    private:
+    };
 };
 
 #endif //ILLATE_NILL_H

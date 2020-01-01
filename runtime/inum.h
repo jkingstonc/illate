@@ -7,11 +7,13 @@
 
 #include "item.h"
 
-class Inum : public Items::Item{
-public:
-    Inum();
-    Items::ItemType type();
-private:
+namespace items{
+    class Inum : public items::Item{
+    public:
+        Inum();
+        items::ItemType type();
+    private:
+    };
 };
 
 #endif //ILLATE_INUM_H

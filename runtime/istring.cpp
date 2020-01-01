@@ -4,14 +4,14 @@
 
 #include "istring.h"
 
-Items::ItemType Istring::type(){
-    return Items::ItemType::STRING;
-}
-
-Istring::Istring(std::string val) : val(val){
+items::Istring::Istring(std::string val) : val(val){
 
 }
 
-std::string Istring::to_string_native(){
+items::ItemType items::Istring::type(){
+    return items::ItemType::STRING;
+}
+
+std::string items::Istring::to_string_native(){
     return this->val;
 }

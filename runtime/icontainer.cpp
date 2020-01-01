@@ -4,13 +4,13 @@
 
 #include "icontainer.h"
 
-Icontainer::Icontainer() {
+items::Icontainer::Icontainer() {
 
 }
 
-Items::ItemType Icontainer::type(){
-    return Items::ItemType::CONTAINER;
+items::ItemType items::Icontainer::type(){
+    return items::ItemType::CONTAINER;
 }
-std::string Icontainer::to_string_native(){
+std::string items::Icontainer::to_string_native(){
     return std::string("Container");
 }

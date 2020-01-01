@@ -7,17 +7,19 @@
 
 #include "item.h"
 
-class Ibool : public Items::Item{
-public:
-    Ibool(bool val);
-    Items::ItemType type();
-    std::string to_string_native();
+namespace items{
+    class Ibool : public items::Item{
+    public:
+        Ibool(bool val);
+        items::ItemType type();
+        std::string to_string_native();
 
-    static std::shared_ptr<Ibool> to_item(bool val){
-        return std::make_shared<Ibool>(val);
-    }
-private:
-    const bool val;
+        static std::shared_ptr<Ibool> to_item(bool val){
+            return std::make_shared<Ibool>(val);
+        }
+    private:
+        const bool val;
+    };
 };
 
 #endif //ILLATE_IBOOL_H

@@ -4,14 +4,14 @@
 
 #include "nill.h"
 
-Inill::Inill(){
+items::Inill::Inill(){
 
 }
 
-Items::ItemType Inill::type(){
-    return Items::ItemType::NIL;
+items::ItemType items::Inill::type(){
+    return items::ItemType::NIL;
 }
 
-std::string Inill::to_string_native(){
+std::string items::Inill::to_string_native(){
     return std::string("nill");
 }

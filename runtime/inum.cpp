@@ -4,8 +4,8 @@
 
 #include "inum.h"
 
-Inum::Inum() {}
+items::Inum::Inum() {}
 
-Items::ItemType Inum::type(){
-    return Items::ItemType::NUMBER;
+items::ItemType items::Inum::type(){
+    return items::ItemType::NUMBER;
 }

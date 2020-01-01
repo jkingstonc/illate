@@ -12,18 +12,18 @@
 #include "idouble.h"
 #include "istring.h"
 
-namespace Utils{
-    static std::shared_ptr<Ibool> to_item(bool val){
-        return Ibool::to_item(val);
+namespace utils{
+    static std::shared_ptr<items::Ibool> to_item(bool val){
+        return items::Ibool::to_item(val);
     }
-    static std::shared_ptr<Iint> to_item(int val){
-        return Iint::to_item(val);
+    static std::shared_ptr<items::Iint> to_item(int val){
+        return items::Iint::to_item(val);
     }
-    static std::shared_ptr<Idouble> to_item(double val){
-        return Idouble::to_item(val);
+    static std::shared_ptr<items::Idouble> to_item(double val){
+        return items::Idouble::to_item(val);
     }
-    static std::shared_ptr<Istring> to_item(std::string val){
-        return Istring::to_item(val);
+    static std::shared_ptr<items::Istring> to_item(std::string val){
+        return items::Istring::to_item(val);
     }
 };
 

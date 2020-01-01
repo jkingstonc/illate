@@ -4,14 +4,14 @@
 
 #include "itemchain.h"
 
-ItemChain::ItemChain() {
+items::ItemChain::ItemChain() {
 
 }
 
-Items::ItemType ItemChain::type(){
-    return Items::ItemType::CHAIN;
+items::ItemType items::ItemChain::type(){
+    return items::ItemType::CHAIN;
 }
 
-std::string ItemChain::to_string_native(){
+std::string items::ItemChain::to_string_native(){
     return std::string("ItemChain");
 }

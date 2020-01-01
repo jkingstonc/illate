@@ -7,12 +7,14 @@
 
 #include "item.h"
 
-class ItemChain : public Items::Item{
-public:
-    ItemChain();
-    Items::ItemType type();
-    std::string to_string_native();
-private:
+namespace items{
+    class ItemChain : public items::Item{
+    public:
+        ItemChain();
+        items::ItemType type();
+        std::string to_string_native();
+    private:
+    };
 };
 
 #endif //ILLATE_ITEMCHAIN_H

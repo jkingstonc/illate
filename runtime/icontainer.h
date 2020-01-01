@@ -8,12 +8,14 @@
 #include "item.h"
 #include "istring.h"
 
-class Icontainer : public Items::Item{
-public:
-    Icontainer();
-    Items::ItemType type();
-    std::string to_string_native();
-private:
+namespace items{
+    class Icontainer : public items::Item{
+    public:
+        Icontainer();
+        items::ItemType type();
+        std::string to_string_native();
+    private:
+    };
 };
 
 #endif //ILLATE_ICONTAINER_H

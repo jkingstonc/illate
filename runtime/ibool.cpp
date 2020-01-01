@@ -4,13 +4,13 @@
 
 #include "ibool.h"
 
-Ibool::Ibool(bool val) : val(val) {
+items::Ibool::Ibool(bool val) : val(val) {
 }
 
-Items::ItemType Ibool::type(){
-    return Items::ItemType::BOOLEAN;
+items::ItemType items::Ibool::type(){
+    return items::ItemType::BOOLEAN;
 }
 
-std::string Ibool::to_string_native(){
+std::string items::Ibool::to_string_native(){
     return (this->val == true) ? std::string("true") : std::string("false");
 }
