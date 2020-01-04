@@ -9,6 +9,7 @@
 #include "gc.h"
 #include "item.h"
 #include "ibyte.h"
+#include "core.h"
 
 // A runtime encapsulates everything needed to embedd Illate into an application
 
@@ -19,8 +20,15 @@ public:
     Runtime();
 private:
     std::shared_ptr<GarbageCollector> gc;
-    // The entry point should be a Core item that is first initialised on startup
-    std::shared_ptr<items::Item> entry_point;
+    /**
+     * The entry point is the first core that is used for the runtime.
+     * When we load the first (if only) script, we will push the Core object onto this entry point's stack.
+     * */
+    std::shared_ptr<items::Core> entry_point;
+    /**
+     * We keep a reference to the Core that we are currently executing so we can reference it's data from the native interface
+     * */
+    std::shared_ptr<items::Core> currently_executing;
 };
 
 
