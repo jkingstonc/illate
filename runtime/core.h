@@ -5,6 +5,7 @@
 #ifndef ILLATE_CORE_H
 #define ILLATE_CORE_H
 
+#include <vector>
 #include <stack>
 
 #include "item.h"
@@ -17,7 +18,7 @@ namespace items{
     // To store local variables in a scope, and any locals above the scope
     typedef struct ScopedLocals{
         std::shared_ptr<ScopedLocals> upper;
-        std::shared_ptr<Item[]> locals;
+        std::shared_ptr<items::Icontainer> locals;
     }ScopedLocals;
 
     /**
@@ -25,15 +26,17 @@ namespace items{
      * */
     class Core : public items::Item{
     public:
-        // Store a reference to the runtime
-        Runtime* runtime;
         // The script that this accesses for code
         std::shared_ptr<Script> script;
 
-        Core(Runtime* runtime) : runtime(runtime){}
-        Core(Runtime* runtime, std::shared_ptr<Script> script) : runtime(runtime), script(script){}
+        Core(){}
+        Core(std::shared_ptr<Script> script) : script(script){}
 
+
+        void bind_enviroment(std::shared_ptr<items::Icontainer> enviroment);
         void bind_scoped_locals(std::shared_ptr<ScopedLocals> upper);
+
+        std::shared_ptr<items::Item> pop();
 
         items::ItemType type();
         std::string to_string_native();
@@ -45,10 +48,11 @@ namespace items{
         std::shared_ptr<items::Item> call(std::shared_ptr<items::Item> arg1, std::shared_ptr<items::Item> arg2, std::shared_ptr<items::Item> arg3);
 
     private:
+        std::shared_ptr<items::Icontainer> enviroment;
         // Our instruction pointer
         uint32_t ip;
         // The execution stack
-        std::stack<Item> exec_stack;
+        std::stack<std::shared_ptr<items::Item>> exec_stack;
         // Our locals along with upper locals
         std::shared_ptr<ScopedLocals> locals;
     };

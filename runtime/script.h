@@ -16,26 +16,31 @@
 #include "item.h"
 #include "icontainer.h"
 
+typedef struct ScriptInfo{
+    std::string filename;
+}ScriptInfo;
+
 class Script{
 public:
 
-    // Create a script assuming we haven't defined an enviroment
-    Script(std::string filename,
-        std::shared_ptr<uint8_t > code) : filename(filename), code(code){}
+    Script(std::shared_ptr<std::vector<uint8_t>> code) : code(code){
+        this->info.filename = std::string("not a file :(");
+    }
 
-    // Create a script assuming we have an enviroment
-    Script(std::string filename,
-            std::shared_ptr<items::Icontainer> enviroment,
-            std::shared_ptr<uint8_t > code) : filename(filename), enviroment(enviroment), code(code){}
+    Script(std::string filename, std::shared_ptr<std::vector<uint8_t>> code) : code(code){
+        this->info.filename = filename;
+    }
 
-    // The filename of the script, if a file wasn't provded then the filename will be initialised to "NIL"
-    std::string filename;
-    // The enviroment that this script uses
-    // With subsequent Core calls (nested core calls), environments will be concatenated
-    std::shared_ptr<items::Icontainer> enviroment;
+    ScriptInfo info;
     // The code to execute
-    std::shared_ptr<uint8_t> code;
+    std::shared_ptr<std::vector<uint8_t>> code;
+
+    // Number of locals in this script
+    int local_count;
 private:
+    // Take the serialized globals/locals and load them into items::Item format
+    void deserialize_globals();
+    void deserialize_locals();
 };
 
 #endif //ILLATE_SCRIPT_H

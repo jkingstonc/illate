@@ -11,13 +11,18 @@
 #include "ibyte.h"
 #include "core.h"
 
-// A runtime encapsulates everything needed to embedd Illate into an application
+// A runtime encapsulates everything needed to embed Illate into an application
 
 class Runtime {
 public:
     items::Ibyte status;
 
     Runtime();
+
+    void bind_entry(std::shared_ptr<items::Core> core);
+
+    std::shared_ptr<items::Core> get_currently_executing();
+
 private:
     std::shared_ptr<GarbageCollector> gc;
     /**
@@ -29,6 +34,8 @@ private:
      * We keep a reference to the Core that we are currently executing so we can reference it's data from the native interface
      * */
     std::shared_ptr<items::Core> currently_executing;
+
+    std::shared_ptr<items::Icontainer> enviroment;
 };
 
 

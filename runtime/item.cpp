@@ -16,3 +16,7 @@ std::string items::Item::item_type_str[] = {
         "object",
         "core"
 };
+
+std::shared_ptr<items::Item> items::Item::call() {
+    return nullptr;
+}

@@ -4,6 +4,21 @@
 
 #include "core.h"
 
+void items::Core::bind_enviroment(std::shared_ptr<items::Icontainer> enviroment){
+    this->enviroment = enviroment;
+}
+void items::Core::bind_scoped_locals(std::shared_ptr<items::ScopedLocals> upper){
+    this->locals = upper;
+    // Initialise our own local array to the size of the ammount of locals we have
+    this->locals->locals = std::make_shared<items::Icontainer>();
+}
+
+std::shared_ptr<items::Item> items::Core::pop(){
+    std::shared_ptr<items::Item> top = this->exec_stack.top();
+    this->exec_stack.pop();
+    return top;
+}
+
 items::ItemType type(){
     return items::ItemType::CORE;
 }

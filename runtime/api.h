@@ -46,22 +46,37 @@ namespace api {
      * */
     static std::shared_ptr<Runtime> new_runtime() {return std::make_shared<Runtime>();}
 
-    static std::shared_ptr<items::Item> safe_call(std::shared_ptr<Runtime> runtime){return nullptr;}
+    static std::shared_ptr<items::Item> safe_call(std::shared_ptr<Runtime> runtime){
+        // We need to check if this is actually a core
+        // Get the current execution stack in use and attempt to pop a 'callable' from it
+        std::shared_ptr<items::Item> core_to_call = runtime->get_currently_executing()->pop();
+        return core_to_call->call();
+    }
+
+    static void push_stack(std::shared_ptr<Runtime> runtime, std::shared_ptr<items::Item> item){}
+    static std::shared_ptr<items::Item> pop_stack(std::shared_ptr<Runtime> runtime){return nullptr;}
+    static std::shared_ptr<items::Item> peek_stack(std::shared_ptr<Runtime> runtime){return nullptr;}
 
     // Load the environment with globals and optionally the standard library to the runtime
     static RUNTIME_STATUS load_env(std::shared_ptr<Runtime> runtime, STD_LIB_OPTIONS options){return RUNTIME_SUCCESS;}
 
     // Load a script into a runtime via a script name
-    static RUNTIME_STATUS load_script(std::shared_ptr<Runtime> runtime, std::string script){ return RUNTIME_SUCCESS;}
+    static RUNTIME_STATUS load_script(std::shared_ptr<Runtime> runtime, std::string filename){
+        // First make a script object
+        std::shared_ptr<std::vector<uint8_t>> code({0});
+        std::shared_ptr<Script> script = std::make_shared<Script>(filename, code);
+        // Make a core and bind it to the script
+        std::shared_ptr<items::Core> core = std::make_shared<items::Core>(script);
+        // Push the core to the stack to be called
+        push_stack(runtime, core);
+        return RUNTIME_SUCCESS;
+    }
     // Load a fragment of code into a runtime via raw bytes
-    static RUNTIME_STATUS load_fragment(std::shared_ptr<Runtime> runtime, std::byte bytecode[]){ return RUNTIME_SUCCESS;}
+    static RUNTIME_STATUS load_fragment(std::shared_ptr<Runtime> runtime, uint8_t bytecode[]){ return RUNTIME_SUCCESS;}
 
     static std::shared_ptr<items::Item> get_global(std::shared_ptr<Runtime> runtime, std::string identifier){return nullptr;}
     static void set_global(std::shared_ptr<Runtime> runtime, std::string identifier, items::Item item);
 
-    static void push_stack(std::shared_ptr<Runtime> runtime, items::Item item){}
-    static std::shared_ptr<items::Item> pop_stack(std::shared_ptr<Runtime> runtime, items::Item item){return nullptr;}
-    static std::shared_ptr<items::Item> peek_stack(std::shared_ptr<Runtime> runtime, items::Item item){return nullptr;}
 
 
 
