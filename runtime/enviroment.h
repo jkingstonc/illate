@@ -10,8 +10,14 @@
 #include "icontainer.h"
 #include "istring.h"
 
-std::shared_ptr<Icontainer> gen_env(){
-    return std::make_shared<Icontainer>();
+// Generates the initial environment variables for startup
+std::shared_ptr<items::Icontainer> gen_env(){
+    return std::make_shared<items::Icontainer>();
+}
+
+// When changing variable scopes, we have to bind the items from the previous scope to the current scope
+std::shared_ptr<items::Icontainer> bind_item_scopes(){
+    return std::make_shared<items::Icontainer>();
 }
 
 #endif //ILLATE_ENVIROMENT_H

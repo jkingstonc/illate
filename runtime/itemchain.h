@@ -13,6 +13,11 @@ namespace items{
         ItemChain();
         items::ItemType type();
         std::string to_string_native();
+
+        int size();
+        std::shared_ptr<Item> first();
+        std::shared_ptr<Item> second();
+        std::shared_ptr<Item> third();
     private:
     };
 };

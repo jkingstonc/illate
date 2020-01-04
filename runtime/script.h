@@ -18,6 +18,12 @@
 
 class Script{
 public:
+
+    // Create a script assuming we haven't defined an enviroment
+    Script(std::string filename,
+        std::shared_ptr<uint8_t > code) : filename(filename), code(code){}
+
+    // Create a script assuming we have an enviroment
     Script(std::string filename,
             std::shared_ptr<items::Icontainer> enviroment,
             std::shared_ptr<uint8_t > code) : filename(filename), enviroment(enviroment), code(code){}
