@@ -5,6 +5,8 @@
 #ifndef ILLATE_API_H
 #define ILLATE_API_H
 
+#include <iostream>
+
 #include "runtime.h"
 
 #include "ibool.h"
@@ -53,17 +55,24 @@ namespace api {
         return core_to_call->call();
     }
 
-    static void push_stack(std::shared_ptr<Runtime> runtime, std::shared_ptr<items::Item> item){}
-    static std::shared_ptr<items::Item> pop_stack(std::shared_ptr<Runtime> runtime){return nullptr;}
+    static void push_stack(std::shared_ptr<Runtime> runtime, std::shared_ptr<items::Item> item){
+        runtime->get_currently_executing()->push(item);
+    }
+    static std::shared_ptr<items::Item> pop_stack(std::shared_ptr<Runtime> runtime){
+        return runtime->get_currently_executing()->pop();
+    }
     static std::shared_ptr<items::Item> peek_stack(std::shared_ptr<Runtime> runtime){return nullptr;}
 
     // Load the environment with globals and optionally the standard library to the runtime
-    static RUNTIME_STATUS load_env(std::shared_ptr<Runtime> runtime, STD_LIB_OPTIONS options){return RUNTIME_SUCCESS;}
+    static RUNTIME_STATUS load_env(std::shared_ptr<Runtime> runtime, STD_LIB_OPTIONS options){
+        runtime->bind_enviroment(std::make_shared<items::Icontainer>());
+        return RUNTIME_SUCCESS;
+    }
 
     // Load a script into a runtime via a script name
     static RUNTIME_STATUS load_script(std::shared_ptr<Runtime> runtime, std::string filename){
         // First make a script object
-        std::shared_ptr<std::vector<uint8_t>> code({0});
+        std::shared_ptr<std::vector<uint8_t>> code = std::make_shared<std::vector<uint8_t>>(std::vector<uint8_t >({ 2,1,0 }));
         std::shared_ptr<Script> script = std::make_shared<Script>(filename, code);
         // Make a core and bind it to the script
         std::shared_ptr<items::Core> core = std::make_shared<items::Core>(script);

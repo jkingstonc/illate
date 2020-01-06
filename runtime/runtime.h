@@ -20,8 +20,9 @@ public:
     Runtime();
 
     void bind_entry(std::shared_ptr<items::Core> core);
-
     std::shared_ptr<items::Core> get_currently_executing();
+
+    void bind_enviroment(std::shared_ptr<items::Icontainer> enviroment);
 
 private:
     std::shared_ptr<GarbageCollector> gc;

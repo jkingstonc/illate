@@ -8,6 +8,8 @@
 #include <string>
 #include <memory>
 
+#include "debug.h"
+
 namespace items{
 
     class Inill;
@@ -71,7 +73,7 @@ namespace items{
         std::shared_ptr<Item> rem(double right);
 
         // Every Item is callable, it can be called with any amount of arguments
-        std::shared_ptr<Item> call();
+        virtual std::shared_ptr<Item> call();
         // Here arg1 can be a single item or an item chain
         std::shared_ptr<Item> call(std::shared_ptr<Item> arg1);
         std::shared_ptr<Item> call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2);

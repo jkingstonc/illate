@@ -23,3 +23,7 @@ void Runtime::bind_entry(std::shared_ptr<items::Core> core){
 std::shared_ptr<items::Core> Runtime::get_currently_executing(){
     return this->currently_executing;
 }
+
+void Runtime::bind_enviroment(std::shared_ptr<items::Icontainer> enviroment){
+    this->enviroment = enviroment;
+}
