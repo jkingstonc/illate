@@ -44,6 +44,7 @@ std::shared_ptr<items::Item> items::Core::pop(){
 }
 
 void items::Core::run_fde() {
+    R_ASSERT(this->script->code, "Script contains no code!");
     bool running = true;
     uint8_t op;
     R_DEBUG("running fde...");
