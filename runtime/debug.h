@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+#include "spdlog/spdlog.h"
+
 // By default debugging is enabled
 #ifndef R_DEBUG_ENABLED
     #define R_DEBUG_ENABLED
@@ -28,7 +30,9 @@
 
 namespace debug{
     class Logger{
-
+    public:
+        std::shared_ptr<spdlog::logger> get_runtime_logger();
+    private:
     };
 };
 
