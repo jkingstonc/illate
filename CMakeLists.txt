@@ -3,6 +3,6 @@ project(illate)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(illate main.cpp runtime/core.cpp runtime/ibool.cpp runtime/icontainer.cpp runtime/idouble.cpp runtime/iint.cpp runtime/inum.cpp runtime/istring.cpp runtime/item.cpp runtime/itemchain.cpp runtime/nill.cpp runtime/runtime.cpp)
+add_executable(illate main.cpp runtime/core.cpp runtime/ibool.cpp runtime/icontainer.cpp runtime/idouble.cpp runtime/iint.cpp runtime/inum.cpp runtime/istring.cpp runtime/item.cpp runtime/itemchain.cpp runtime/nill.cpp runtime/runtime.cpp runtime/debug.cpp)
 
 include_directories("libs/")
