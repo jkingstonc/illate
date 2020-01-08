@@ -7,6 +7,8 @@
 
 namespace {
     enum Opcodes {
+        DEBUG,
+
         NOP,
         END,
         PAUSE,

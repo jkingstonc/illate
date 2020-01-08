@@ -16,6 +16,10 @@ Runtime::Runtime() {
     this->bind_entry(std::make_shared<items::Core>());
 }
 
+void Runtime::set_debug(bool debug){
+    items::Core::debug_mode = debug;
+}
+
 void Runtime::bind_entry(std::shared_ptr<items::Core> core){
     this->entry_point = core;
 }

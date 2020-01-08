@@ -14,6 +14,8 @@
 #include "idouble.h"
 #include "istring.h"
 
+#define RUNTIME_PTR std::shared_ptr<Runtime>
+
 typedef int NATIVE_STATUS;
 #define NATIVE_SUCCESS 0
 #define NATIVE_FAILIURE 1
@@ -33,7 +35,7 @@ typedef int EXECUTION_STATUS;
 namespace api {
 
     // Native functions return a success status as an int and take a Runtime pointer as an argument
-    typedef int (*native_func)(std::shared_ptr<Runtime>);
+    typedef int (*native_func)(RUNTIME_PTR);
 
     // Each native function needs to be binded to a string identifier
     typedef struct native_func_bind{
@@ -46,33 +48,49 @@ namespace api {
     /**
      * Runtime related functions
      * */
-    static std::shared_ptr<Runtime> new_runtime() {return std::make_shared<Runtime>();}
+    static RUNTIME_PTR new_runtime() {return std::make_shared<Runtime>();}
 
-    static std::shared_ptr<items::Item> safe_call(std::shared_ptr<Runtime> runtime){
+    static void set_debug(RUNTIME_PTR runtime, bool debug){runtime->set_debug(debug);}
+
+    static std::shared_ptr<items::Item> safe_call(RUNTIME_PTR runtime){
         // We need to check if this is actually a core
         // Get the current execution stack in use and attempt to pop a 'callable' from it
         std::shared_ptr<items::Item> core_to_call = runtime->get_currently_executing()->pop();
         return core_to_call->call();
     }
 
-    static void push_stack(std::shared_ptr<Runtime> runtime, std::shared_ptr<items::Item> item){
+    static std::shared_ptr<items::Item> debug_call(RUNTIME_PTR runtime){
+        // We need to check if this is actually a core
+        // Get the current execution stack in use and attempt to pop a 'callable' from it
+        std::shared_ptr<items::Item> core_to_call = runtime->get_currently_executing()->peek();
+        return core_to_call->call();
+    }
+
+    // Used for explicitly returning from breakpoints
+    static std::shared_ptr<items::Item> resume_call(RUNTIME_PTR runtime){
+        return debug_call(runtime);
+    }
+
+    static void push_stack(RUNTIME_PTR runtime, std::shared_ptr<items::Item> item){
         runtime->get_currently_executing()->push(item);
     }
-    static std::shared_ptr<items::Item> pop_stack(std::shared_ptr<Runtime> runtime){
+    static std::shared_ptr<items::Item> pop_stack(RUNTIME_PTR runtime){
         return runtime->get_currently_executing()->pop();
     }
-    static std::shared_ptr<items::Item> peek_stack(std::shared_ptr<Runtime> runtime){return nullptr;}
+    static std::shared_ptr<items::Item> peek_stack(RUNTIME_PTR runtime){return nullptr;}
 
     // Load the environment with globals and optionally the standard library to the runtime
-    static RUNTIME_STATUS load_env(std::shared_ptr<Runtime> runtime, STD_LIB_OPTIONS options){
+    static RUNTIME_STATUS load_env(RUNTIME_PTR runtime, STD_LIB_OPTIONS options){
         runtime->bind_enviroment(std::make_shared<items::Icontainer>());
         return RUNTIME_SUCCESS;
     }
 
     // Load a script into a runtime via a script name
-    static RUNTIME_STATUS load_script(std::shared_ptr<Runtime> runtime, std::string filename){
+    static RUNTIME_STATUS load_script(RUNTIME_PTR runtime, std::string filename){
         // First make a script object
-        std::shared_ptr<std::vector<uint8_t>> code = std::make_shared<std::vector<uint8_t>>(std::vector<uint8_t >({ 2,1,0 }));
+        std::shared_ptr<std::vector<uint8_t>> code = std::make_shared<std::vector<uint8_t>>(std::vector<uint8_t >({
+            0, 3, 0, 2
+        }));
         std::shared_ptr<Script> script = std::make_shared<Script>(filename, code);
         // Make a core and bind it to the script
         std::shared_ptr<items::Core> core = std::make_shared<items::Core>(script);
@@ -81,10 +99,10 @@ namespace api {
         return RUNTIME_SUCCESS;
     }
     // Load a fragment of code into a runtime via raw bytes
-    static RUNTIME_STATUS load_fragment(std::shared_ptr<Runtime> runtime, uint8_t bytecode[]){ return RUNTIME_SUCCESS;}
+    static RUNTIME_STATUS load_fragment(RUNTIME_PTR runtime, uint8_t bytecode[]){ return RUNTIME_SUCCESS;}
 
-    static std::shared_ptr<items::Item> get_global(std::shared_ptr<Runtime> runtime, std::string identifier){return nullptr;}
-    static void set_global(std::shared_ptr<Runtime> runtime, std::string identifier, items::Item item);
+    static std::shared_ptr<items::Item> get_global(RUNTIME_PTR runtime, std::string identifier){return nullptr;}
+    static void set_global(RUNTIME_PTR runtime, std::string identifier, items::Item item);
 
 
 
@@ -95,7 +113,7 @@ namespace api {
      * Library related functions
      * */
     // Bind a native library of C functions to the runtime
-    static int bind_native_lib(std::shared_ptr<Runtime> runtime, std::string lib_name, std::shared_ptr<native_func_bind[]> lib){
+    static int bind_native_lib(RUNTIME_PTR runtime, std::string lib_name, std::shared_ptr<native_func_bind[]> lib){
         return NATIVE_SUCCESS;
     }
 

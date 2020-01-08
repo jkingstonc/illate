@@ -15,9 +15,9 @@
 
 class Runtime {
 public:
-    items::Ibyte status;
 
     Runtime();
+    void set_debug(bool debug);
 
     void bind_entry(std::shared_ptr<items::Core> core);
     std::shared_ptr<items::Core> get_currently_executing();
