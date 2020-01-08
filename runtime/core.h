@@ -69,7 +69,7 @@ namespace items{
         std::shared_ptr<items::Item> peek();
 
         std::shared_ptr<ExecutionDebugState> get_exec_debug_state();
-        void resume_debug_state();
+        std::shared_ptr<items::Item> explicit_resume_debug();
 
         /**
          * Inherited items::Item methods
@@ -97,6 +97,7 @@ namespace items{
         /** When we hit a breakpoint, the core will exit. However, it's sate will be saved in memory for
         resuming the fde later */
         void save_debug_state();
+        void resume_debug_state();
     };
 };
 

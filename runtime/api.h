@@ -68,7 +68,7 @@ namespace api {
 
     // Used for explicitly returning from breakpoints
     static std::shared_ptr<items::Item> resume_call(RUNTIME_PTR runtime){
-        return debug_call(runtime);
+        return std::dynamic_pointer_cast<items::Core>(runtime->get_currently_executing()->peek())->explicit_resume_debug();
     }
 
     static void push_stack(RUNTIME_PTR runtime, std::shared_ptr<items::Item> item){

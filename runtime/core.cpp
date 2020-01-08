@@ -147,3 +147,9 @@ void items::Core::resume_debug_state(){
     this->exec_debug_state->paused = false;
     this->ip = this->exec_debug_state->ip_at_break;
 }
+
+std::shared_ptr<items::Item> items::Core::explicit_resume_debug(){
+    this->resume_debug_state();
+    this->run_fde();
+    return nullptr;
+}
