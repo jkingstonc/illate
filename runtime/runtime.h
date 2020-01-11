@@ -18,13 +18,17 @@ public:
 
     Runtime();
 
-    void bind_entry(std::shared_ptr<items::Core> core);
+    void bind_to_core(std::shared_ptr<items::Core> core);
+
     std::shared_ptr<items::Core> get_entry_point();
     std::shared_ptr<items::Core> get_currently_executing();
 
     void bind_enviroment(std::shared_ptr<items::Icontainer> enviroment);
 
 private:
+
+    std::shared_ptr<TraceBackLog> trace_back_log;
+
     std::shared_ptr<GarbageCollector> gc;
     /**
      * The entry point is the first core that is used for the runtime.

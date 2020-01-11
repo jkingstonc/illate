@@ -48,7 +48,9 @@ namespace api {
     /**
      * Runtime related functions
      * */
-    static RUNTIME_PTR new_runtime() {return std::make_shared<Runtime>();}
+    static RUNTIME_PTR new_runtime() {
+        return std::make_shared<Runtime>();
+    }
 
     static std::shared_ptr<items::Item> safe_call(RUNTIME_PTR runtime){
         // We need to check if this is actually a core
@@ -80,6 +82,8 @@ namespace api {
         std::shared_ptr<Script> script = std::make_shared<Script>(filename, code);
         // Make a core and bind it to the script
         std::shared_ptr<items::Core> core = std::make_shared<items::Core>(script);
+        // Ensure we bind the core to the runtime
+        runtime->bind_to_core(core);
         // Push the core to the stack to be called
         push_stack(runtime, core);
         return RUNTIME_SUCCESS;

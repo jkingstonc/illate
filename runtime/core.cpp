@@ -6,13 +6,9 @@
 
 
 items::Core::Core(){
-    this->exec_debug_state = std::make_shared<ExecutionDebugState>();
-    this->exec_debug_state->is_currently_paused = false;
 }
 
 items::Core::Core(std::shared_ptr<Script> script){
-    this->exec_debug_state = std::make_shared<ExecutionDebugState>();
-    this->exec_debug_state->is_currently_paused = false;
     this->script = script;
 }
 
@@ -36,6 +32,10 @@ std::shared_ptr<items::Item> items::Core::call(std::shared_ptr<items::Item> arg1
 std::shared_ptr<items::Item> items::Core::call(std::shared_ptr<items::Item> arg1, std::shared_ptr<items::Item> arg2){return nullptr;};
 std::shared_ptr<items::Item> items::Core::call(std::shared_ptr<items::Item> arg1, std::shared_ptr<items::Item> arg2, std::shared_ptr<items::Item> arg3){return nullptr;};
 
+
+void items::Core::bind_trace_back_log(std::shared_ptr<TraceBackLog> trace_back_log){
+    this->trace_back_log = trace_back_log;
+}
 void items::Core::bind_enviroment(std::shared_ptr<items::Icontainer> enviroment){
     this->enviroment = enviroment;
 }
@@ -60,16 +60,12 @@ std::shared_ptr<items::Item> items::Core::peek(){
     R_ASSERT(this->exec_stack.size(), "Exec stack is empty!");
     return this->exec_stack.top();
 }
-
-std::shared_ptr<ExecutionDebugState> items::Core::get_exec_debug_state(){
-    return this->exec_debug_state;
-}
-
 void items::Core::run_fde() {
     R_ASSERT(this->script->code, "Script contains no code!");
     // If we are in debug mode, we should record the current time for timing
-    if(DEBUG_MODE()){
-        this->exec_debug_state->start_time = std::chrono::high_resolution_clock::now();
+    std::chrono::time_point<std::chrono::steady_clock> start_time, end_time;
+    if(TRACEBACK_MODE()){
+        start_time = std::chrono::high_resolution_clock::now();
     }
     bool running = true;
     uint8_t op;
@@ -118,8 +114,12 @@ void items::Core::run_fde() {
             default: break;
         }
     }
-    if(DEBUG_MODE()){
-        this->exec_debug_state->end_time = std::chrono::high_resolution_clock::now();
+    if(TRACEBACK_MODE()){
+        end_time = std::chrono::high_resolution_clock::now();
+        std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time-start_time);
+        // Push the traceback to the runtime's log
+        this->trace_back_log->log.push_back(duration);
+        std::cout << duration.count()/1000000 << std::endl;
     }
     R_INFO("ending fde...");
 }
