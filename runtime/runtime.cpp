@@ -16,12 +16,13 @@ Runtime::Runtime() {
     this->bind_entry(std::make_shared<items::Core>());
 }
 
-void Runtime::set_debug(bool debug){
-    items::Core::debug_mode = debug;
-}
-
 void Runtime::bind_entry(std::shared_ptr<items::Core> core){
     this->entry_point = core;
+    this->entry_point->bind_enviroment(this->enviroment);
+}
+
+std::shared_ptr<items::Core> Runtime::get_entry_point(){
+    return this->entry_point;
 }
 
 std::shared_ptr<items::Core> Runtime::get_currently_executing(){

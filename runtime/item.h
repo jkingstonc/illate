@@ -53,22 +53,22 @@ namespace items{
         std::shared_ptr<Idouble> to_double();
 
         std::shared_ptr<Item> neg();
-        std::shared_ptr<Item> add(Item right);
+        std::shared_ptr<Item> add(std::shared_ptr<Item> right);
         std::shared_ptr<Item> add(int right);
         std::shared_ptr<Item> add(double right);
-        std::shared_ptr<Item> sub(Item right);
+        std::shared_ptr<Item> sub(std::shared_ptr<Item> right);
         std::shared_ptr<Item> sub(int right);
         std::shared_ptr<Item> sub(double right);
-        std::shared_ptr<Item> mul(Item right);
+        std::shared_ptr<Item> mul(std::shared_ptr<Item> right);
         std::shared_ptr<Item> mul(int right);
         std::shared_ptr<Item> mul(double right);
-        std::shared_ptr<Item> div(Item right);
+        std::shared_ptr<Item> div(std::shared_ptr<Item> right);
         std::shared_ptr<Item> div(int right);
         std::shared_ptr<Item> div(double right);
-        std::shared_ptr<Item> mod(Item right);
+        std::shared_ptr<Item> mod(std::shared_ptr<Item> right);
         std::shared_ptr<Item> mod(int right);
         std::shared_ptr<Item> mod(double right);
-        std::shared_ptr<Item> rem(Item right);
+        std::shared_ptr<Item> rem(std::shared_ptr<Item> right);
         std::shared_ptr<Item> rem(int right);
         std::shared_ptr<Item> rem(double right);
 

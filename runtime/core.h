@@ -13,8 +13,7 @@
 #include "item.h"
 #include "script.h"
 
-#define DEFAULT_DEBUG false
-#define IS_DEBUG() this->exec_debug_state->is_debugging
+#define DEBUG_MODE() true
 
 #define GET_OP() this->script->code->at(this->ip)
 #define NEXT() this->ip++;
@@ -22,13 +21,10 @@
 class Runtime;
 
 /**
- * An ExecutionDebugState is used to store information about the execution of a core in debug mode.
- * -> Whether the Core was in debug mode is stored
- * -> The IP value when a breakpoint is hit will be stored
+ * An ExecutionDebugState is used to store information about the execution of a core in debug mode
  * */
 typedef struct ExecutionDebugState{
-    bool is_debugging;
-    bool paused;
+    bool is_currently_paused;
     uint8_t ip_at_break;
     std::chrono::high_resolution_clock::time_point start_time, end_time;
 }ExecutionDebugState;
@@ -69,7 +65,6 @@ namespace items{
         std::shared_ptr<items::Item> peek();
 
         std::shared_ptr<ExecutionDebugState> get_exec_debug_state();
-        std::shared_ptr<items::Item> explicit_resume_debug();
 
         /**
          * Inherited items::Item methods
@@ -96,8 +91,6 @@ namespace items{
         void run_fde();
         /** When we hit a breakpoint, the core will exit. However, it's sate will be saved in memory for
         resuming the fde later */
-        void save_debug_state();
-        void resume_debug_state();
     };
 };
 

@@ -17,9 +17,9 @@ class Runtime {
 public:
 
     Runtime();
-    void set_debug(bool debug);
 
     void bind_entry(std::shared_ptr<items::Core> core);
+    std::shared_ptr<items::Core> get_entry_point();
     std::shared_ptr<items::Core> get_currently_executing();
 
     void bind_enviroment(std::shared_ptr<items::Icontainer> enviroment);

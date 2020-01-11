@@ -16,11 +16,13 @@
 #endif
 
 
-#define CRITICAL_RUNTIME_ERROR(...) {std::cout << "Runtime Error: " << __VA_ARGS__ << std::endl;}
+#define CRITICAL_RUNTIME_ERROR(...) { \
+    throw std::runtime_error(__VA_ARGS__); \
+}
 
 // Used when during runtime we encounter a critical issue, if the assertion fails then the vm will break
 #define R_ASSERT(err, ...) { \
-    if(!err) { CRITICAL_RUNTIME_ERROR("Assertion Failed: " << __VA_ARGS__); } \
+    if(!err) { CRITICAL_RUNTIME_ERROR(std::strcat("Assertion Failed: ", __VA_ARGS__)); } \
 }
 
 /**

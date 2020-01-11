@@ -4,18 +4,15 @@
 
 #include "core.h"
 
-bool items::Core::debug_mode = DEFAULT_DEBUG;
 
 items::Core::Core(){
     this->exec_debug_state = std::make_shared<ExecutionDebugState>();
-    this->exec_debug_state->is_debugging = items::Core::debug_mode;
-    this->exec_debug_state->paused = false;
+    this->exec_debug_state->is_currently_paused = false;
 }
 
 items::Core::Core(std::shared_ptr<Script> script){
     this->exec_debug_state = std::make_shared<ExecutionDebugState>();
-    this->exec_debug_state->is_debugging = items::Core::debug_mode;
-    this->exec_debug_state->paused = false;
+    this->exec_debug_state->is_currently_paused = false;
     this->script = script;
 }
 
@@ -31,12 +28,6 @@ std::string items::Core::to_string_native(){
  * Every Item is callable, it can be called with any amount of arguments
  * */
 std::shared_ptr<items::Item> items::Core::call(){
-    // First check if we are having to resume the core
-    if(IS_DEBUG()){
-        if(this->exec_debug_state->paused){
-            this->resume_debug_state();
-        }
-    }
     this->run_fde();
     return nullptr;
 }
@@ -59,12 +50,14 @@ void items::Core::push(std::shared_ptr<items::Item> item){
 }
 
 std::shared_ptr<items::Item> items::Core::pop(){
+    R_ASSERT(this->exec_stack.size(), "Exec stack is empty!");
     std::shared_ptr<items::Item> top = this->exec_stack.top();
     this->exec_stack.pop();
     return top;
 }
 
 std::shared_ptr<items::Item> items::Core::peek(){
+    R_ASSERT(this->exec_stack.size(), "Exec stack is empty!");
     return this->exec_stack.top();
 }
 
@@ -73,14 +66,11 @@ std::shared_ptr<ExecutionDebugState> items::Core::get_exec_debug_state(){
 }
 
 void items::Core::run_fde() {
-
     R_ASSERT(this->script->code, "Script contains no code!");
-
     // If we are in debug mode, we should record the current time for timing
-    if(IS_DEBUG()){
+    if(DEBUG_MODE()){
         this->exec_debug_state->start_time = std::chrono::high_resolution_clock::now();
     }
-
     bool running = true;
     uint8_t op;
     R_INFO("fde start");
@@ -93,11 +83,7 @@ void items::Core::run_fde() {
             case Opcodes::NOP: break;
             case Opcodes::END: running=false; break;
             case Opcodes::PAUSE: {
-                if(IS_DEBUG()){
-                    // Save the state of the runtime
-                    save_debug_state();
-                    running=false;
-                }
+                // Execute INT 3 asm for kernel to exec a breakpoint
                 break;
             }
             case Opcodes::LD_CONST: break;
@@ -120,7 +106,10 @@ void items::Core::run_fde() {
             case Opcodes::EQ: break;
             case Opcodes::LT: break;
             case Opcodes::GT: break;
-            case Opcodes::CALL: break;
+            case Opcodes::CALL: {
+                std::shared_ptr<items::Item> next_entry = this->peek();
+                break;
+            }
             case Opcodes::RETURN: break;
             case Opcodes::CHAIN_VALS: break;
             case Opcodes::MAKE: break;
@@ -129,27 +118,8 @@ void items::Core::run_fde() {
             default: break;
         }
     }
-    if(IS_DEBUG()){
+    if(DEBUG_MODE()){
         this->exec_debug_state->end_time = std::chrono::high_resolution_clock::now();
     }
     R_INFO("ending fde...");
-}
-
-void items::Core::save_debug_state(){
-    R_INFO("Hit breakpoint, saving state.");
-    this->exec_debug_state->paused = true;
-    this->exec_debug_state->ip_at_break = this->ip;
-}
-
-void items::Core::resume_debug_state(){
-    R_INFO("Resuming core state.");
-    // Restore the instruction pointer
-    this->exec_debug_state->paused = false;
-    this->ip = this->exec_debug_state->ip_at_break;
-}
-
-std::shared_ptr<items::Item> items::Core::explicit_resume_debug(){
-    this->resume_debug_state();
-    this->run_fde();
-    return nullptr;
 }

@@ -50,25 +50,11 @@ namespace api {
      * */
     static RUNTIME_PTR new_runtime() {return std::make_shared<Runtime>();}
 
-    static void set_debug(RUNTIME_PTR runtime, bool debug){runtime->set_debug(debug);}
-
     static std::shared_ptr<items::Item> safe_call(RUNTIME_PTR runtime){
         // We need to check if this is actually a core
-        // Get the current execution stack in use and attempt to pop a 'callable' from it
+        // Get the current execution stack in use and attempt to retrieve a 'callable' from it
         std::shared_ptr<items::Item> core_to_call = runtime->get_currently_executing()->pop();
         return core_to_call->call();
-    }
-
-    static std::shared_ptr<items::Item> debug_call(RUNTIME_PTR runtime){
-        // We need to check if this is actually a core
-        // Get the current execution stack in use and attempt to pop a 'callable' from it
-        std::shared_ptr<items::Item> core_to_call = runtime->get_currently_executing()->peek();
-        return core_to_call->call();
-    }
-
-    // Used for explicitly returning from breakpoints
-    static std::shared_ptr<items::Item> resume_call(RUNTIME_PTR runtime){
-        return std::dynamic_pointer_cast<items::Core>(runtime->get_currently_executing()->peek())->explicit_resume_debug();
     }
 
     static void push_stack(RUNTIME_PTR runtime, std::shared_ptr<items::Item> item){
