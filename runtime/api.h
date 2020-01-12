@@ -53,10 +53,16 @@ namespace api {
     }
 
     static std::shared_ptr<items::Item> safe_call(RUNTIME_PTR runtime){
+        std::shared_ptr<items::Item> result;
         // We need to check if this is actually a core
         // Get the current execution stack in use and attempt to retrieve a 'callable' from it
         std::shared_ptr<items::Item> core_to_call = runtime->get_currently_executing()->pop();
-        return core_to_call->call();
+        try{
+            result = core_to_call->call();
+        }catch(IRuntimeException i_runtime_exception){
+            R_ERROR(i_runtime_exception.info());
+        }
+        return result;
     }
 
     static void push_stack(RUNTIME_PTR runtime, std::shared_ptr<items::Item> item){

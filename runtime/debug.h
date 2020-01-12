@@ -10,6 +10,20 @@
 #include "spdlog/sinks/stdout_sinks.h"
 #include "spdlog/logger.h"
 
+typedef struct IRuntimeException : public std::exception
+{
+    std::string msg;
+
+    IRuntimeException(std::string msg){
+        this->msg = msg;
+    }
+
+    const std::string info () const throw ()
+    {
+        return this->msg;
+    }
+}IRuntimeException;
+
 // By default debugging is enabled
 #ifndef R_DEBUG_ENABLED
     #define R_DEBUG_ENABLED
@@ -17,7 +31,7 @@
 
 
 #define CRITICAL_RUNTIME_ERROR(...) { \
-    throw std::runtime_error(__VA_ARGS__); \
+    throw IRuntimeException(std::string(__VA_ARGS__)); \
 }
 
 // Used when during runtime we encounter a critical issue, if the assertion fails then the vm will break
