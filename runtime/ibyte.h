@@ -7,7 +7,10 @@
 
 namespace items {
     class Ibyte {
-
+        friend bool operator== (Ibyte & lhs, Ibyte & rhs ){
+            return lhs.val == rhs.val;
+        }
+        const uint8_t val;
     };
 };
 

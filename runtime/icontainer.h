@@ -29,9 +29,9 @@ namespace items{
         void set(std::shared_ptr<Item> by_reference, std::shared_ptr<Item> new_value);
         void set(Item by_value, std::shared_ptr<Item> new_value);
 
-        std::shared_ptr<Item> put(int by_index, std::shared_ptr<Item> new_value);
-        std::shared_ptr<Item> put(std::shared_ptr<Item> by_reference, std::shared_ptr<Item> new_value);
-        std::shared_ptr<Item> put(Item by_value, std::shared_ptr<Item> new_value);
+        void put(int by_index, std::shared_ptr<Item> new_value);
+        void put(std::shared_ptr<Item> by_reference, std::shared_ptr<Item> new_value);
+        void put(Item by_value, std::shared_ptr<Item> new_value);
     private:
         std::vector<std::shared_ptr<items::Item>> keys, values;
     };

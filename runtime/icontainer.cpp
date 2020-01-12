@@ -22,9 +22,9 @@ void items::Icontainer::null_grow(int index){
     }
 }
 
-std::shared_ptr<items::Item> items::Icontainer::get(int by_index){}
-std::shared_ptr<items::Item> items::Icontainer::get(std::shared_ptr<Item> by_reference){}
-std::shared_ptr<items::Item> items::Icontainer::get(Item by_value){}
+std::shared_ptr<items::Item> items::Icontainer::get(int by_index){return nullptr;}
+std::shared_ptr<items::Item> items::Icontainer::get(std::shared_ptr<Item> by_reference){return nullptr;}
+std::shared_ptr<items::Item> items::Icontainer::get(Item by_value){return nullptr;}
 
 void items::Icontainer::raw_set(int index, std::shared_ptr<items::Item> key, std::shared_ptr<items::Item> value){
     this->keys.at(index) = key;
@@ -49,6 +49,15 @@ void items::Icontainer::set(items::Item by_value, std::shared_ptr<items::Item> n
     }
 }
 
-std::shared_ptr<items::Item> items::Icontainer::put(int by_index, std::shared_ptr<items::Item> new_value){}
-std::shared_ptr<items::Item> items::Icontainer::put(std::shared_ptr<items::Item> by_reference, std::shared_ptr<items::Item> new_value){}
-std::shared_ptr<items::Item> items::Icontainer::put(items::Item by_value, std::shared_ptr<items::Item> new_value){}
+void items::Icontainer::put(int by_index, std::shared_ptr<items::Item> new_value){
+    this->null_grow(by_index);
+    this->values.at(by_index) = new_value;
+}
+void items::Icontainer::put(std::shared_ptr<items::Item> by_reference, std::shared_ptr<items::Item> new_value){
+    this->keys.push_back(by_reference);
+    this->values.push_back(new_value);
+}
+void items::Icontainer::put(items::Item by_value, std::shared_ptr<items::Item> new_value){
+    this->keys.push_back(std::make_shared<items::Item>(by_value));
+    this->values.push_back(new_value);
+}

@@ -11,13 +11,15 @@ namespace items{
     class Istring : public items::Item{
     public:
         Istring(std::string val);
+        friend bool operator== (Istring & lhs, Istring & rhs ){
+            return lhs.val.compare(rhs.val)==0;
+        }
         items::ItemType type();
         std::string to_string_native();
 
         static std::shared_ptr<Istring> to_item(std::string val){
             return std::make_shared<Istring>(val);
         }
-    private:
         const std::string val;
     };
 };

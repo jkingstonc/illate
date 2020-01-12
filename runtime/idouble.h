@@ -11,6 +11,9 @@ namespace items{
     class Idouble : public Inum{
     public:
         Idouble(double val);
+        friend bool operator== (Idouble & lhs, Idouble & rhs ){
+            return lhs.val == rhs.val;
+        }
         std::string to_string_native();
         bool to_bool_native();
         std::uint8_t to_byte_native();
@@ -20,7 +23,6 @@ namespace items{
         static std::shared_ptr<Idouble> to_item(double val){
             return std::make_shared<Idouble>(val);
         }
-    private:
         const double val;
     };
 };

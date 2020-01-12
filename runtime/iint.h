@@ -11,7 +11,9 @@ namespace items{
     class Iint : public Inum{
     public:
         Iint(int val);
-
+        friend bool operator== (Iint & lhs, Iint & rhs ){
+            return lhs.val == rhs.val;
+        }
         std::string to_string_native();
         bool to_bool_native();
         std::uint8_t to_byte_native();
@@ -46,7 +48,6 @@ namespace items{
         static std::shared_ptr<Iint> to_item(int val){
             return std::make_shared<Iint>(val);
         }
-    private:
         const int val;
     };
 };
