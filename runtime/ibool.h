@@ -17,7 +17,6 @@ namespace items{
         static std::shared_ptr<Ibool> to_item(bool val){
             return std::make_shared<Ibool>(val);
         }
-    private:
         const bool val;
     };
 };

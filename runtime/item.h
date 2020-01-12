@@ -38,6 +38,8 @@ namespace items{
 
     class Item{
     public:
+        friend bool operator== (Item & lhs, Item & rhs );
+
         ItemType type();
 
         std::string to_string_native();

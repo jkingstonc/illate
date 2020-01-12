@@ -119,7 +119,7 @@ void items::Core::run_fde() {
         std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time-start_time);
         // Push the traceback to the runtime's log
         this->trace_back_log->log.push_back(duration);
-        std::cout << duration.count()/1000000 << std::endl;
+        std::cout << "core duration: " << duration.count()/1000000 << std::endl;
     }
     R_INFO("ending fde...");
 }
