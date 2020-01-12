@@ -15,11 +15,11 @@ namespace items{
         bool equal(std::shared_ptr<Item> rhs);
         std::string to_string_native();
 
-        static std::shared_ptr<Ibool> to_item(bool val){
-            return std::make_shared<Ibool>(val);
-        }
         const bool val;
     };
+    static std::shared_ptr<Ibool> to_item(bool val){
+        return std::make_shared<Ibool>(val);
+    }
 };
 
 #endif //ILLATE_IBOOL_H

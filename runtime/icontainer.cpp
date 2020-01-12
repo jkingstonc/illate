@@ -33,16 +33,15 @@ std::shared_ptr<items::Item> items::Icontainer::get(int by_index){
     if(by_index < this->values.size()){
         return this->values.at(by_index);
     }
-    // Should throw an exception here
-    return nullptr;
+    return items::to_inill();
 }
 std::shared_ptr<items::Item> items::Icontainer::get(std::shared_ptr<Item> by_reference){
     // Compare the pointer values rather than the raw values
     for(int i = 0; i<this->keys.size(); i++){
-        if(this->keys.at(i) == by_reference)
+        if(this->keys.at(i)->equal(by_reference))
             return this->values.at(i);
     }
-    return nullptr;
+    return items::to_inill();
 }
 
 void items::Icontainer::raw_set(int index, std::shared_ptr<items::Item> key, std::shared_ptr<items::Item> value){

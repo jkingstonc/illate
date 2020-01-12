@@ -18,11 +18,11 @@ namespace items{
         int to_int_native();
         double to_double_native();
 
-        static std::shared_ptr<Idouble> to_item(double val){
-            return std::make_shared<Idouble>(val);
-        }
         const double val;
     };
+    static std::shared_ptr<Idouble> to_item(double val){
+        return std::make_shared<Idouble>(val);
+    }
 };
 
 #endif //ILLATE_IDOUBLE_H

@@ -84,6 +84,7 @@ namespace items{
 
         static std::string item_type_str[11];
 
+
     private:
     };
 }

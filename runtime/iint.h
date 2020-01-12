@@ -43,11 +43,11 @@ namespace items{
         std::shared_ptr<items::Item> rem(int right);
         std::shared_ptr<items::Item> rem(double right);
 
-        static std::shared_ptr<Iint> to_item(int val){
-            return std::make_shared<Iint>(val);
-        }
         const int val;
     };
+    static std::shared_ptr<Iint> to_item(int val){
+        return std::make_shared<Iint>(val);
+    }
 };
 
 #endif //ILLATE_IINT_H

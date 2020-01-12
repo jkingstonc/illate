@@ -14,12 +14,11 @@ namespace items{
         items::ItemType type();
         bool equal(std::shared_ptr<Item> rhs);
         std::string to_string_native();
-
-        static std::shared_ptr<Item> to_inill(std::string){
-            return std::shared_ptr<Inill>();
-        }
     private:
     };
+    static std::shared_ptr<Item> to_inill(){
+        return std::make_shared<Inill>();
+    }
 };
 
 #endif //ILLATE_NILL_H

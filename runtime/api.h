@@ -121,19 +121,19 @@ namespace api {
      * Item related functions
      * */
     static std::shared_ptr<items::Ibool> to_item(bool val) {
-        return items::Ibool::to_item(val);
+        return items::to_item(val);
     }
 
     static std::shared_ptr<items::Iint> to_item(int val) {
-        return items::Iint::to_item(val);
+        return items::to_item(val);
     }
 
     static std::shared_ptr<items::Idouble> to_item(double val) {
-        return items::Idouble::to_item(val);
+        return items::to_item(val);
     }
 
     static std::shared_ptr<items::Istring> to_item(std::string val) {
-        return items::Istring::to_item(val);
+        return items::to_item(val);
     }
 };
 

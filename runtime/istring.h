@@ -15,11 +15,11 @@ namespace items{
         bool equal(std::shared_ptr<Item> right);
         std::string to_string_native();
 
-        static std::shared_ptr<Istring> to_item(std::string val){
-            return std::make_shared<Istring>(val);
-        }
         const std::string val;
     };
+    static std::shared_ptr<Istring> to_item(std::string val){
+        return std::make_shared<Istring>(val);
+    }
 };
 
 #endif //ILLATE_ISTRING_H
