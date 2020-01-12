@@ -10,8 +10,9 @@
 namespace items{
     class Inum : public items::Item{
     public:
-        Inum();
-        items::ItemType type();
+        items::ItemType type(){
+            return items::ItemType::NUMBER;
+        }
     private:
     };
 };

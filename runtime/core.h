@@ -65,6 +65,15 @@ namespace items{
 
         Core();
         Core(std::shared_ptr<Script> script);
+        items::ItemType type();
+        bool equal(std::shared_ptr<Item> rhs);
+        std::string to_string_native();
+
+        std::shared_ptr<items::Item> call();
+        // Here arg1 can be a single item or an item chain
+        std::shared_ptr<items::Item> call(std::shared_ptr<items::Item> arg1);
+        std::shared_ptr<items::Item> call(std::shared_ptr<items::Item> arg1, std::shared_ptr<items::Item> arg2);
+        std::shared_ptr<items::Item> call(std::shared_ptr<items::Item> arg1, std::shared_ptr<items::Item> arg2, std::shared_ptr<items::Item> arg3);
 
         void bind_trace_back_log(std::shared_ptr<TraceBackLog> trace_back_log);
         void bind_enviroment(std::shared_ptr<items::Icontainer> enviroment);
@@ -73,17 +82,6 @@ namespace items{
         void push(std::shared_ptr<items::Item> item);
         std::shared_ptr<items::Item> pop();
         std::shared_ptr<items::Item> peek();
-
-        /**
-         * Inherited items::Item methods
-         * */
-        items::ItemType type();
-        std::string to_string_native();
-        std::shared_ptr<items::Item> call();
-        // Here arg1 can be a single item or an item chain
-        std::shared_ptr<items::Item> call(std::shared_ptr<items::Item> arg1);
-        std::shared_ptr<items::Item> call(std::shared_ptr<items::Item> arg1, std::shared_ptr<items::Item> arg2);
-        std::shared_ptr<items::Item> call(std::shared_ptr<items::Item> arg1, std::shared_ptr<items::Item> arg2, std::shared_ptr<items::Item> arg3);
 
     private:
         std::shared_ptr<TraceBackLog> trace_back_log;

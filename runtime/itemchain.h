@@ -12,6 +12,7 @@ namespace items{
     public:
         ItemChain();
         items::ItemType type();
+        bool equal(std::shared_ptr<Item> rhs);
         std::string to_string_native();
 
         int size();

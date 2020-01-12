@@ -4,7 +4,9 @@
 
 #include "item.h"
 
+
 std::string items::Item::item_type_str[] = {
+        "none",
         "nill",
         "chain",
         "boolean",

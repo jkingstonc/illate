@@ -11,10 +11,8 @@ namespace items{
     class Istring : public items::Item{
     public:
         Istring(std::string val);
-        friend bool operator== (Istring & lhs, Istring & rhs ){
-            return lhs.val.compare(rhs.val)==0;
-        }
         items::ItemType type();
+        bool equal(std::shared_ptr<Item> right);
         std::string to_string_native();
 
         static std::shared_ptr<Istring> to_item(std::string val){

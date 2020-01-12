@@ -12,13 +12,9 @@ items::Core::Core(std::shared_ptr<Script> script){
     this->script = script;
 }
 
-items::ItemType type(){
-    return items::ItemType::CORE;
-}
-
-std::string items::Core::to_string_native(){
-    return std::string("Core");
-}
+items::ItemType items::Core::type(){return items::ItemType::CORE;}
+bool items::Core::equal(std::shared_ptr<Item> rhs){return false;}
+std::string items::Core::to_string_native(){return std::string("Core");}
 
 /**
  * Every Item is callable, it can be called with any amount of arguments

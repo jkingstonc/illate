@@ -12,6 +12,10 @@ items::ItemType items::ItemChain::type(){
     return items::ItemType::CHAIN;
 }
 
+bool items::ItemChain::equal(std::shared_ptr<Item> rhs){
+    return false;
+}
+
 std::string items::ItemChain::to_string_native(){
     return std::string("ItemChain");
 }

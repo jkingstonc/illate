@@ -11,10 +11,8 @@ namespace items{
     class Ibool : public items::Item{
     public:
         Ibool(bool val);
-        friend bool operator== (Ibool & lhs, Ibool & rhs ){
-            return lhs.val == rhs.val;
-        }
         items::ItemType type();
+        bool equal(std::shared_ptr<Item> rhs);
         std::string to_string_native();
 
         static std::shared_ptr<Ibool> to_item(bool val){

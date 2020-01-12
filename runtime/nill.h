@@ -12,6 +12,7 @@ namespace items{
     public:
         Inill();
         items::ItemType type();
+        bool equal(std::shared_ptr<Item> rhs);
         std::string to_string_native();
 
         static std::shared_ptr<Item> to_inill(std::string){

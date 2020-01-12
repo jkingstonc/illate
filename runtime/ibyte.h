@@ -5,11 +5,12 @@
 #ifndef ILLATE_IBYTE_H
 #define ILLATE_IBYTE_H
 
+#include "inum.h"
+
 namespace items {
-    class Ibyte {
-        friend bool operator== (Ibyte & lhs, Ibyte & rhs ){
-            return lhs.val == rhs.val;
-        }
+    class Ibyte : public Inum{
+        bool equal(std::shared_ptr<Item> rhs){return false;}
+        std::string to_string_native(){return std::string("Byte");}
         const uint8_t val;
     };
 };

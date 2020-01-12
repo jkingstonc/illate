@@ -9,6 +9,7 @@
 
 #include "item.h"
 #include "istring.h"
+#include "iint.h"
 #include "nill.h"
 
 namespace items{
@@ -16,8 +17,11 @@ namespace items{
     public:
         Icontainer();
         ItemType type();
+        bool equal(std::shared_ptr<Item> rhs);
         std::string to_string_native();
 
+
+        Iint size();
         void null_grow(int index);
 
         std::shared_ptr<Item> get(int by_index);

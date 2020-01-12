@@ -8,6 +8,13 @@ items::Iint::Iint(int val) : val(val) {
 
 }
 
+bool items::Iint::equal(std::shared_ptr<Item> rhs) {
+    if(rhs->type() == ItemType::NUMBER){
+        return dynamic_cast<Iint*>(rhs.get())->val == this->val;
+    }
+    return false;
+}
+
 std::string items::Iint::to_string_native() {
     return std::string(std::to_string(this->val));
 }

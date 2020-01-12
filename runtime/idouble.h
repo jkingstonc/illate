@@ -11,9 +11,7 @@ namespace items{
     class Idouble : public Inum{
     public:
         Idouble(double val);
-        friend bool operator== (Idouble & lhs, Idouble & rhs ){
-            return lhs.val == rhs.val;
-        }
+        bool equal(std::shared_ptr<Item> rhs);
         std::string to_string_native();
         bool to_bool_native();
         std::uint8_t to_byte_native();

@@ -8,6 +8,10 @@ items::Idouble::Idouble(double val) : val(val){
 
 }
 
+
+bool items::Idouble::equal(std::shared_ptr<Item> rhs){
+    return false;
+}
 std::string items::Idouble::to_string_native() {
     return std::string(std::to_string(this->val));
 }

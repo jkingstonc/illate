@@ -7,6 +7,7 @@
 
 #include <string>
 #include <memory>
+#include <map>
 
 #include "debug.h"
 
@@ -19,30 +20,30 @@ namespace items{
     class Idouble;
     class Istring;
 
-    enum class ItemType{
-        NIL,
-        CHAIN,
+    enum ItemType{
+        NONE = 0,
+        NIL = 1,
+        CHAIN = 2,
 
-        BOOLEAN,
-        NUMBER,
-        STRING,
+        BOOLEAN = 3,
+        NUMBER = 4,
+        STRING = 5,
 
-        CONTAINER,
+        CONTAINER = 6,
 
-        FUNCTION,
-        CLASS,
-        OBJECT,
+        FUNCTION = 7,
+        CLASS = 8,
+        OBJECT = 9,
 
-        CORE,
+        CORE = 10,
     };
 
     class Item{
     public:
-        ItemType type();
-        friend bool operator== (Item & lhs, Item & rhs ){
-            return false;
-        }
-        std::string to_string_native();
+        virtual ItemType type(){return ItemType::NONE;}
+        virtual bool equal(std::shared_ptr<Item> rhs){return false;}
+        virtual std::string to_string_native(){return std::string("Item");}
+
         bool to_bool_native();
         std::uint8_t to_byte_native();
         int to_int_native();
@@ -81,7 +82,7 @@ namespace items{
         std::shared_ptr<Item> call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2);
         std::shared_ptr<Item> call(std::shared_ptr<Item> arg1, std::shared_ptr<Item> arg2, std::shared_ptr<Item> arg3);
 
-        static std::string item_type_str[10];
+        static std::string item_type_str[11];
 
     private:
     };
