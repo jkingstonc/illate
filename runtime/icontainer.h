@@ -31,11 +31,15 @@ namespace items{
         void raw_set(int index, std::shared_ptr<Item> key, std::shared_ptr<Item> value);
         void set(int by_index, std::shared_ptr<Item> new_value);
         void set(std::shared_ptr<Item> by_reference, std::shared_ptr<Item> new_value);
-        void set(Item by_value, std::shared_ptr<Item> new_value);
 
-        void put(int by_index, std::shared_ptr<Item> new_value);
-        void put(std::shared_ptr<Item> by_reference, std::shared_ptr<Item> new_value);
-        void put(Item by_value, std::shared_ptr<Item> new_value);
+        void append(std::shared_ptr<items::Item> new_value);
+        void append(std::shared_ptr<items::Item> by_reference, std::shared_ptr<items::Item> new_value);
+
+        void insert(int by_index, std::shared_ptr<Item> value);
+        void insert(int by_index, std::shared_ptr<Item> key, std::shared_ptr<Item> value);
+
+        void remove(int by_index);
+        void remove(std::shared_ptr<items::Item> by_reference);
     private:
         std::vector<std::shared_ptr<items::Item>> keys, values;
     };
