@@ -31,12 +31,12 @@ typedef struct IRuntimeException : public std::exception
 
 
 #define CRITICAL_RUNTIME_ERROR(...) { \
-    throw IRuntimeException(std::string(__VA_ARGS__)); \
+    throw IRuntimeException(__VA_ARGS__); \
 }
 
 // Used when during runtime we encounter a critical issue, if the assertion fails then the vm will break
 #define R_ASSERT(err, ...) { \
-    if(!err) { CRITICAL_RUNTIME_ERROR(std::strcat("Assertion Failed: ", __VA_ARGS__)); } \
+    if(!err) { CRITICAL_RUNTIME_ERROR(std::string("Assertion Failed! ... ").append(__VA_ARGS__)); } \
 }
 
 /**

@@ -59,7 +59,7 @@ std::shared_ptr<items::Item> items::Core::peek(){
 void items::Core::run_fde() {
     R_ASSERT(this->script->code, "Script contains no code!");
     // If we are in debug mode, we should record the current time for timing
-    std::chrono::time_point<std::chrono::steady_clock> start_time, end_time;
+    std::chrono::high_resolution_clock::time_point start_time, end_time;
     if(TRACEBACK_MODE()){
         start_time = std::chrono::high_resolution_clock::now();
     }
